@@ -1,0 +1,48 @@
+{
+  "checkedAt": "2026-11-23T13:10:04.578Z",
+  "checks": [
+    {
+      "service": "payments-api",
+      "ownDatabase": "payments-db",
+      "unresolvable": [
+        "accounts-db",
+        "banks-db"
+      ],
+      "httpHealthy": [
+        "http://accounts-service:3011/health"
+      ]
+    },
+    {
+      "service": "payments-worker",
+      "ownDatabase": "payments-db",
+      "unresolvable": [
+        "accounts-db",
+        "banks-db"
+      ],
+      "httpHealthy": [
+        "http://accounts-service:3011/health",
+        "http://bank-simulator:3012/health"
+      ]
+    },
+    {
+      "service": "accounts-service",
+      "ownDatabase": "accounts-db",
+      "unresolvable": [
+        "payments-db",
+        "banks-db",
+        "rabbitmq"
+      ],
+      "httpHealthy": []
+    },
+    {
+      "service": "bank-simulator",
+      "ownDatabase": "banks-db",
+      "unresolvable": [
+        "payments-db",
+        "accounts-db",
+        "rabbitmq"
+      ],
+      "httpHealthy": []
+    }
+  ]
+}

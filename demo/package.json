@@ -1,0 +1,13 @@
+{
+  "name": "horizonte-demo-tools",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=24"},
+  "scripts": {
+    "operator": "node scripts/operator.ts",
+    "resilience": "node scripts/resilience.ts",
+    "telemetry": "node scripts/telemetry.ts",
+    "evidence": "node scripts/catalog.ts"
+  },
+  "devDependencies": {"@playwright/test":"1.65.1"}
+}

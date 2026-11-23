@@ -1,0 +1,139 @@
+{
+  "observedAt": "2026-11-23T13:11:16.705Z",
+  "id": "b10f9589-e83b-8929-8368-50e5223a3f60",
+  "receipt": "B-1a7a141e-31c1-4962-a7bb-efb6e12edc17",
+  "openingMinor": 1000000,
+  "finalMinor": 700000,
+  "requests": [
+    {
+      "id": "b10f9589-e83b-8929-8368-50e5223a3f60",
+      "status": 202,
+      "keyFingerprint": "b9529eb459c4",
+      "clientReceived": false
+    },
+    {
+      "id": "b10f9589-e83b-8929-8368-50e5223a3f60",
+      "status": 202,
+      "keyFingerprint": "b9529eb459c4",
+      "clientReceived": true
+    }
+  ],
+  "payment": {
+    "id": "b10f9589-e83b-8929-8368-50e5223a3f60",
+    "companyId": "horizonte",
+    "accountId": "acc-horizonte",
+    "state": "PAID",
+    "version": 5,
+    "attempt": 0,
+    "reviewRequired": false,
+    "submissionIntent": true,
+    "receipt": "B-1a7a141e-31c1-4962-a7bb-efb6e12edc17",
+    "billRef": "atlas-483",
+    "currency": "BRL",
+    "amountMinor": 300000,
+    "beneficiaryRef": "atlas",
+    "createdAt": "2026-11-23T13:11:12.280Z",
+    "updatedAt": "2026-11-23T13:11:12.384Z",
+    "cancelReason": null,
+    "payment": {
+      "id": "b10f9589-e83b-8929-8368-50e5223a3f60",
+      "companyId": "horizonte",
+      "accountId": "acc-horizonte",
+      "state": "PAID",
+      "version": 5,
+      "attempt": 0,
+      "reviewRequired": false,
+      "submissionIntent": true,
+      "receipt": "B-1a7a141e-31c1-4962-a7bb-efb6e12edc17",
+      "billRef": "atlas-483",
+      "currency": "BRL",
+      "amountMinor": 300000,
+      "beneficiaryRef": "atlas",
+      "createdAt": "2026-11-23T13:11:12.280Z",
+      "updatedAt": "2026-11-23T13:11:12.384Z",
+      "cancelReason": null
+    },
+    "events": [
+      {
+        "createdAt": "2026-11-23T13:11:12.283179+00:00",
+        "eventType": "PAYMENT_CREATED",
+        "actor": "payments-api",
+        "detail": null,
+        "state": "RESERVATION_PENDING",
+        "version": 1
+      },
+      {
+        "createdAt": "2026-11-23T13:11:12.309281+00:00",
+        "eventType": "FUNDS_RESERVED",
+        "actor": "payments-worker",
+        "detail": null,
+        "state": "AWAITING_SUBMISSION",
+        "version": 2
+      },
+      {
+        "createdAt": "2026-11-23T13:11:12.350025+00:00",
+        "eventType": "PROVIDER_SUBMISSION_AUTHORIZED",
+        "actor": "payments-worker",
+        "detail": null,
+        "state": "AWAITING_CONFIRMATION",
+        "version": 3
+      },
+      {
+        "createdAt": "2026-11-23T13:11:12.354912+00:00",
+        "eventType": "RECONCILIATION_STARTED",
+        "actor": "payments-worker",
+        "detail": null,
+        "state": "AWAITING_CONFIRMATION",
+        "version": 3
+      },
+      {
+        "createdAt": "2026-11-23T13:11:12.366609+00:00",
+        "eventType": "PROVIDER_CONFIRMED_PAID",
+        "actor": "payments-worker",
+        "detail": null,
+        "state": "DEBIT_PENDING",
+        "version": 4
+      },
+      {
+        "createdAt": "2026-11-23T13:11:12.384829+00:00",
+        "eventType": "DEBIT_CAPTURED",
+        "actor": "payments-worker",
+        "detail": null,
+        "state": "PAID",
+        "version": 5
+      }
+    ]
+  },
+  "bank": {
+    "id": "b10f9589-e83b-8929-8368-50e5223a3f60",
+    "status": "PAID",
+    "receipt": "B-1a7a141e-31c1-4962-a7bb-efb6e12edc17",
+    "paidEvents": 1
+  },
+  "account": {
+    "status": "CAPTURED",
+    "account": "acc-horizonte",
+    "amountMinor": 300000,
+    "reserves": 1,
+    "captures": 1,
+    "releases": 0
+  },
+  "transcript": [
+    {
+      "at": "2026-11-23T13:11:12.269Z",
+      "observation": "The API accepted the request, but the browser showed a retry prompt after the connection closed."
+    },
+    {
+      "at": "2026-11-23T13:11:13.541Z",
+      "observation": "The accepted payment was visible after reload. Its status was Paid."
+    },
+    {
+      "at": "2026-11-23T13:11:13.565Z",
+      "observation": "Opened the settled receipt to compare it with the acknowledgement after retry."
+    },
+    {
+      "at": "2026-11-23T13:11:15.399Z",
+      "observation": "The acknowledgement and both ledgers agree on one paid bill, one receipt and one debit."
+    }
+  ]
+}

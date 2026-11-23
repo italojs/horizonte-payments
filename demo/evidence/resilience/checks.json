@@ -1,0 +1,109 @@
+[
+  {
+    "case": "concurrent-replay",
+    "observedAt": "2026-11-23T13:12:28.088Z",
+    "id": "7786ebec-6f49-8386-b7af-b182e5b6fdf2",
+    "requests": 16,
+    "captures": 1,
+    "bankPaid": 1,
+    "elapsedMs": 996,
+    "conflict": 409
+  },
+  {
+    "case": "after-commit",
+    "observedAt": "2026-11-23T13:12:29.630Z",
+    "id": "41a930b0-0f73-8ffd-b3c3-a139528b12de",
+    "state": "PAID",
+    "paid": 1,
+    "receipt": "B-fdd952c9-0591-4a90-bcab-c713d0d7379a",
+    "captures": 1,
+    "releases": 0,
+    "reserves": 1,
+    "workerExit": 86
+  },
+  {
+    "case": "after-provider",
+    "observedAt": "2026-11-23T13:12:31.703Z",
+    "id": "b55fbce2-16f2-80dd-b6eb-7a8e3c78393f",
+    "state": "PAID",
+    "paid": 1,
+    "receipt": "B-bfad7552-cb12-4c83-be72-e028444e0be3",
+    "captures": 1,
+    "releases": 0,
+    "reserves": 1,
+    "workerExit": 86
+  },
+  {
+    "case": "automatic-cancellation-bank-stopped",
+    "observedAt": "2026-11-23T13:12:46.980Z",
+    "id": "b360ad59-3477-8e89-badd-84db0dddcda7",
+    "state": "CANCELLED",
+    "balanceBefore": 745000,
+    "balanceAfter": 745000,
+    "history": [
+      "PAYMENT_CREATED",
+      "FUNDS_RESERVED",
+      "RETRY_SCHEDULED",
+      "RETRY_SCHEDULED",
+      "RETRY_SCHEDULED",
+      "AUTOMATIC_CANCELLATION_SCHEDULED",
+      "CANCELLATION_REQUESTED",
+      "RECONCILIATION_STARTED",
+      "CANCELLED_BEFORE_SUBMISSION",
+      "RESERVATION_RELEASED"
+    ],
+    "routes": [
+      "payments.process",
+      "payments.process",
+      "payments.retry",
+      "payments.retry",
+      "payments.retry",
+      "payments.cancel",
+      "payments.process",
+      "payments.process"
+    ],
+    "paid": 0,
+    "receipt": null,
+    "captures": 0,
+    "releases": 1,
+    "reserves": 1
+  },
+  {
+    "case": "broker-unavailable",
+    "observedAt": "2026-11-23T13:12:48.044Z",
+    "http": 503,
+    "previouslyAccepted": "a12aafcc-dfb8-87c4-aedc-8875dbd1c062"
+  },
+  {
+    "case": "broker-restart",
+    "observedAt": "2026-11-23T13:12:55.379Z",
+    "id": "a12aafcc-dfb8-87c4-aedc-8875dbd1c062",
+    "state": "PAID",
+    "paid": 1,
+    "receipt": "B-d7015d71-18d2-459f-935f-222b9bfe6403",
+    "captures": 1,
+    "releases": 0,
+    "reserves": 1
+  },
+  {
+    "case": "missing-publisher-confirm",
+    "observedAt": "2026-11-23T13:13:01.558Z",
+    "id": "2e91046b-e111-87d0-a442-1845ac50a028",
+    "firstHttp": 503,
+    "responseMs": 5009,
+    "paid": 1,
+    "receipt": "B-1c8ff0ca-2eaf-4d67-890b-b5b5d8df143b",
+    "captures": 1,
+    "releases": 0,
+    "reserves": 1
+  },
+  {
+    "case": "concurrent-funds",
+    "observedAt": "2026-11-23T13:13:01.900Z",
+    "requests": 4,
+    "paid": 1,
+    "insufficient": 3,
+    "balanceBefore": 575000,
+    "balanceAfter": 275000
+  }
+]

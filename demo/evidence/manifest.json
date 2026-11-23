@@ -1,0 +1,55 @@
+{
+  "recordedAt": "2026-11-23T13:12:36.089Z",
+  "traceId": "c44464482054b4ef906234e81d180b5a",
+  "paymentId": "663025f9-d64e-85af-a4d7-9eb6c84fc657",
+  "videos": [
+    {
+      "title": "The bank pays and loses its response",
+      "file": "explorations/01-provider-response-lost.mp4",
+      "observations": "explorations/01-provider-response-lost.json",
+      "paymentId": "663025f9-d64e-85af-a4d7-9eb6c84fc657",
+      "durationSeconds": 5.76,
+      "sha256": "db9dbc9dfa2a3147ee2e29e361906daeacc0c6d73f7b077a4db654f1b5b2cab7"
+    },
+    {
+      "title": "Cancellation while the bank is offline",
+      "file": "explorations/02-manual-cancellation.mp4",
+      "observations": "explorations/02-manual-cancellation.json",
+      "paymentId": "dda13345-eb5e-8c70-9b71-8284d6ba7ffe",
+      "durationSeconds": 12.4,
+      "sha256": "476ed0120dec9135307b620869ef874a55cc445dc0c7147a41e83685f3bfbfb5"
+    },
+    {
+      "title": "Automatic cancellation before bank submission",
+      "file": "explorations/03-automatic-cancellation.mp4",
+      "observations": "explorations/03-automatic-cancellation.json",
+      "paymentId": "38711f7e-9657-8020-bb02-e88e01760087",
+      "durationSeconds": 19.52,
+      "sha256": "2959f8af0e1860155a410690073309cd2371abaa3cf0e8bb288a15d06f319dab"
+    },
+    {
+      "title": "The browser loses the acceptance response",
+      "file": "explorations/04-client-response-lost.mp4",
+      "observations": "explorations/04-client-response-lost.json",
+      "paymentId": "b10f9589-e83b-8929-8368-50e5223a3f60",
+      "durationSeconds": 4.52,
+      "sha256": "effca62a3e6cc6f61b32fec22add9fca264e484d9e760b6f70368c368991246b"
+    },
+    {
+      "title": "Distributed payment trace",
+      "file": "telemetry/grafana-trace.mp4",
+      "observations": "telemetry/manifest.json",
+      "paymentId": "663025f9-d64e-85af-a4d7-9eb6c84fc657",
+      "durationSeconds": 10.56,
+      "sha256": "e43fabec7ab4f32328e1d11e352b766ba07a31844d6379d44ef8759e3f83cfc7"
+    },
+    {
+      "title": "Operation counters and correlated logs",
+      "file": "telemetry/grafana-metrics-logs.mp4",
+      "observations": "telemetry/manifest.json",
+      "paymentId": "663025f9-d64e-85af-a4d7-9eb6c84fc657",
+      "durationSeconds": 12.16,
+      "sha256": "62f09d55c8638f13eb90dcafd00ce081d5c8ee5063b03bea1be4283d4380f409"
+    }
+  ]
+}

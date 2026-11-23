@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How a bill payment settles · Horizonte</title>
+<style>
+  :root { color-scheme: light; font-family: Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif; color: #16342e; background: #eff3ef; }
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  main { max-width: 1680px; margin: 0 auto; padding: 18px 20px 24px; }
+  figure { margin: 0; background: #fbfcf9; border: 1px solid #ced9d2; border-radius: 9px; overflow: hidden; }
+  figure:fullscreen { width: 100vw; height: 100vh; border: 0; border-radius: 0; display: grid; place-items: center; background: #172d29; }
+  svg { display: block; width: 100%; height: auto; background: #fbfcf9; font-family: inherit; }
+  figure:fullscreen svg { width: min(100vw, 177.7778vh); }
+  .toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; padding: 14px 0 0; font-size: 14px; }
+  select, button { color: #183a33; background: #fff; border: 1px solid #b4c6bc; font: inherit; border-radius: 5px; padding: 8px 12px; min-height: 36px; }
+  select { max-width: 100%; }
+  button { cursor: pointer; } button:disabled { opacity: .36; cursor: default; }
+  button:focus-visible, select:focus-visible { outline: 3px solid #248369; outline-offset: 2px; }
+  #counter { min-width: 75px; text-align: center; font-variant-numeric: tabular-nums; }
+  #present { margin-left: auto; }
+  .keys { color: #4a655b; font-size: 13px; margin: 8px 0 0; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  @media(max-width:650px) { main { padding: 8px; } #present { margin-left: 0; } }
+  @media print { main { padding: 0; } figure { border: 0; } .toolbar, .keys { display: none; } @page { size: landscape; margin: 0; } }
+</style>
+</head>
+<body><main>
+<figure id="canvas" aria-label="Payment architecture presentation">
+<svg id="map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="svgTitle svgDescription">
+  <title id="svgTitle">How a bill payment settles</title>
+  <desc id="svgDescription">Inside Payments, the web app sends an instruction to the API, RabbitMQ delivers it to the SAGA worker, and the worker calls Accounts and Banks over HTTP. Each project owns its database. Select a use case below to follow the payment.</desc>
+  <defs>
+    <marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#1d705c" stroke-width="1.7" stroke-linejoin="round"/></marker>
+    <marker id="readTip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#697c72" stroke-width="1.7" stroke-linejoin="round"/></marker>
+    <g id="storage" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="13" cy="6" rx="11" ry="4"/><path d="M2 6v14c0 5 22 5 22 0V6M2 13c0 5 22 5 22 0"/></g>
+  </defs>
+  <style>
+    .title { font-size: 54px; font-weight: 680; letter-spacing: -2.5px; fill: #173a31; }
+    .subtitle { font-size: 23px; fill: #52685f; }
+    .owner { font-size: 31px; font-weight: 660; letter-spacing: -1px; fill: #153f33; }
+    .node-title { font-size: 25px; font-weight: 660; letter-spacing: -.8px; fill: #173b31; }
+    .body { font-size: 19px; fill: #486156; }
+    .small { font-size: 17px; fill: #4f665b; }
+    .link-label { font-size: 18px; font-weight: 520; fill: #395c50; }
+    .section-label { font-size: 15px; font-weight: 650; letter-spacing: 1.4px; fill: #566e62; }
+    .wire { fill: none; stroke: #1d705c; stroke-width: 2.9; stroke-linejoin: round; stroke-linecap: round; marker-end: url(#tip); }
+    .query { fill: none; stroke: #697c72; stroke-width: 2.3; stroke-dasharray: 6 7; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#readTip); }
+    .node { fill: white; stroke: #9ab8a7; stroke-width: 1.7; }
+    .boundary { stroke: #c1d1c6; stroke-width: 1.8; }
+    .card-title { font-size: 27px; font-weight: 650; fill: #153d33; letter-spacing: -.7px; }
+    .outcome { font-size: 25px; font-weight: 620; fill: #173e33; letter-spacing: -.45px; }
+    [data-key] { transition: opacity 140ms; }
+    .quiet { opacity: .34; }
+    .active .wire, .active .query { stroke-width: 4.5; }
+    .active .node, .active .boundary { stroke: #167058; stroke-width: 3; }
+    @media(prefers-reduced-motion:reduce) { [data-key] { transition:none; } }
+  </style>
+  <rect width="1600" height="900" fill="#fbfcf9"/>
+  <text x="60" y="85" class="title">How a bill payment settles</text>
+  <text x="62" y="127" class="subtitle">Ana pays a BRL 3,000 bill from Atlas Supplies.</text>
+  <g transform="translate(1085 81)">
+    <path class="wire" d="M0 0h43"/><text x="56" y="6" class="small">Payment flow</text>
+    <path class="query" d="M210 0h43"/><text x="268" y="6" class="small">Customer read</text>
+  </g>
+
+  <rect x="58" y="171" width="1037" height="467" rx="17" fill="#f0f5ef" class="boundary"/>
+  <text x="83" y="216" class="owner">Payments</text>
+  <text x="83" y="246" class="body">Owns the instruction and its recovery.</text>
+
+  <!-- The customer read uses the upper lane. The financial commands branch from the worker. -->
+  <g data-key="readBalance">
+    <path class="query" d="M363 325V277Q363 269 371 269H1182"/>
+    <text x="648" y="257" text-anchor="middle" class="small">Read available balance</text>
+  </g>
+  <g data-key="request"><path class="wire" d="M224 370H278"/></g>
+  <g data-key="publish"><path class="wire" d="M470 370H530"/></g>
+  <g data-key="deliver"><path class="wire" d="M711 370H785"/></g>
+  <g data-key="accountCall"><path class="wire" d="M1048 352H1126Q1134 352 1134 344V300Q1134 292 1142 292H1182"/></g>
+  <g data-key="bankCall"><path class="wire" d="M1048 393H1126Q1134 393 1134 401V500Q1134 508 1142 508H1182"/></g>
+  <g data-key="ack">
+    <path class="wire" d="M821 419V452Q821 460 813 460H635Q627 460 627 452V420"/>
+    <text x="725" y="488" text-anchor="middle" class="link-label">Publish next · await confirm · ACK</text>
+  </g>
+  <g data-key="readHistory">
+    <path class="query" d="M363 419V559Q363 567 371 567H496"/>
+    <text x="422" y="551" text-anchor="middle" class="small">Read history</text>
+  </g>
+  <g data-key="commit">
+    <path class="wire" d="M963 419V559Q963 567 955 567H811"/>
+    <text x="888" y="551" text-anchor="middle" class="link-label">Commit step</text>
+  </g>
+
+  <g data-key="web"><rect x="84" y="325" width="140" height="94" rx="10" class="node"/>
+    <text x="154" y="366" text-anchor="middle" class="node-title">Web app</text>
+    <text x="154" y="396" text-anchor="middle" class="small">Ana’s screen</text></g>
+  <g data-key="api"><rect x="282" y="325" width="188" height="94" rx="10" class="node"/>
+    <text x="376" y="366" text-anchor="middle" class="node-title">Payments API</text>
+    <text x="376" y="396" text-anchor="middle" class="small">Accepts requests</text></g>
+  <g data-key="mq"><rect x="535" y="325" width="176" height="94" rx="10" class="node"/>
+    <text x="623" y="366" text-anchor="middle" class="node-title">RabbitMQ</text>
+    <text x="623" y="396" text-anchor="middle" class="small">Durable queues</text></g>
+  <g data-key="worker"><rect x="790" y="325" width="258" height="94" rx="10" fill="#174d3d" stroke="#174d3d" stroke-width="2"/>
+    <text x="919" y="366" text-anchor="middle" font-size="28" font-weight="650" fill="white">SAGA worker</text>
+    <text x="919" y="396" text-anchor="middle" font-size="17" fill="#e1eee3">Retries and circuit breaker</text></g>
+  <g data-key="db"><rect x="500" y="522" width="306" height="90" rx="10" class="node"/>
+    <use href="#storage" x="516" y="538" color="#48735f"/>
+    <text x="553" y="558" font-size="22" font-weight="630" fill="#193e32">Payments database</text>
+    <text x="521" y="586" class="small">State, audit and command receipts</text></g>
+
+  <g data-key="accounts">
+    <rect x="1188" y="171" width="353" height="215" rx="17" fill="#f1f5fa" stroke="#c2cfdc" stroke-width="1.8"/>
+    <text x="1215" y="216" class="owner">Accounts</text>
+    <text x="1215" y="250" class="body">Accounts HTTP API</text>
+    <text x="1215" y="282" font-size="21" font-weight="590" fill="#244f52">Reserve, capture, release</text>
+    <path d="M1215 309h298" stroke="#c3d1db"/>
+    <use href="#storage" x="1215" y="329" color="#496e78"/>
+    <text x="1254" y="349" class="body">Account ledger</text>
+  </g>
+  <g data-key="banks">
+    <rect x="1188" y="422" width="353" height="216" rx="17" fill="#fcf5ed" stroke="#d7caba" stroke-width="1.8"/>
+    <text x="1215" y="467" class="owner">Banks</text>
+    <text x="1215" y="501" class="body">Provider HTTP API</text>
+    <text x="1215" y="533" font-size="21" font-weight="590" fill="#614c34">Look up, submit, cancel</text>
+    <path d="M1215 561h298" stroke="#d7ccbc"/>
+    <use href="#storage" x="1215" y="581" color="#776145"/>
+    <text x="1254" y="601" class="body">Settlements and receipts</text>
+  </g>
+
+  <rect x="58" y="684" width="1483" height="158" rx="14" fill="#e9f1eb"/>
+  <path d="M915 709v108M1273 709v108" stroke="#bfcec2" stroke-width="1.5"/>
+  <text id="sceneTitle" x="86" y="732" class="card-title">Payment overview</text>
+  <text x="86" y="770" class="body"><tspan id="line1">Payments coordinates the instruction. Accounts controls the funds.</tspan><tspan id="line2" x="86" dy="28">Banks confirms whether the supplier was paid.</tspan></text>
+  <text x="945" y="740" class="section-label">PAYMENT STATE</text>
+  <text id="paymentState" x="945" y="791" class="outcome">Before payment</text>
+  <text x="1302" y="740" class="section-label">AVAILABLE BALANCE</text>
+  <text id="balance" x="1302" y="791" class="outcome">BRL 10,000</text>
+</svg>
+</figure>
+<nav class="toolbar" aria-label="Diagram controls">
+  <label for="scene">Use case</label><select id="scene"></select>
+  <button id="back" type="button">Previous step</button>
+  <span id="counter"></span>
+  <button id="next" type="button">Next step</button>
+  <button id="present" type="button">Present fullscreen</button>
+</nav>
+<p class="keys">Use ← and → for steps, ↑ and ↓ for use cases, and Esc to leave fullscreen.</p>
+<p id="announcement" role="status" class="sr"></p>
+</main>
+<script>
+const step = (focus, state, available, first, second = '') => ({ focus: focus.split(' '), state, available, first, second });
+const scenarios = [
+  { title: 'Payment overview', steps: [
+    step('', 'Before payment', '10,000', 'Payments coordinates the instruction. Accounts controls the funds.', 'Banks confirms whether the supplier was paid.')
+  ]},
+  { title: 'Successful payment', steps: [
+    step('web request api publish mq', 'Accepted', '10,000', 'Ana confirms the bill. The API returns 202 after RabbitMQ confirms publication.', 'Ana has a payment ID. Settlement is still ahead.'),
+    step('mq deliver worker accountCall accounts commit db', 'Awaiting submission', '7,000', 'Accounts reserves BRL 3,000. Ana now has BRL 7,000 available.', 'The worker records the decision in Payments.'),
+    step('worker bankCall banks commit db', 'Awaiting confirmation', '7,000', 'The worker looks up the reference and records submission intent.', 'It submits the bill using that same payment ID.'),
+    step('worker bankCall banks commit db', 'Debit pending', '7,000', 'Banks confirms settlement and returns a receipt.', 'Payments records the receipt and schedules capture.'),
+    step('worker accountCall accounts commit db', 'Paid', '7,000', 'Accounts captures the existing reservation. Payments marks the bill paid.', 'The balance already reflected the reservation.'),
+    step('web request api readBalance accounts readHistory db', 'Paid', '7,000', 'Ana opens the payment. The API reads its history and receipt from Payments', 'and the current available balance from Accounts.')
+  ]},
+  { title: 'Lost bank response', steps: [
+    step('worker bankCall banks', 'Awaiting confirmation', '7,000', 'Banks settles the transfer, but its HTTP response never reaches the worker.', 'Accounts still holds the BRL 3,000 reservation.'),
+    step('worker commit db ack mq deliver', 'Awaiting confirmation', '7,000', 'The worker records the uncertain outcome and schedules a retry.', 'RabbitMQ delivers the command when it becomes due.'),
+    step('worker bankCall banks', 'Debit pending', '7,000', 'A lookup by the original payment ID finds the settlement and its receipt.'),
+    step('worker accountCall accounts commit db', 'Paid', '7,000', 'The worker captures the existing reservation once and records completion.')
+  ]},
+  { title: 'Bank offline before submission', steps: [
+    step('worker accountCall accounts commit db', 'Awaiting submission', '7,000', 'Accounts has reserved BRL 3,000. No bank submission has started.'),
+    step('worker bankCall banks', 'Awaiting submission', '7,000', 'The provider lookup fails. The worker cannot advance to submission.'),
+    step('worker commit db mq deliver ack', 'Awaiting submission', '7,000', 'One retry queue schedules 5 seconds, 1 minute and 10 minutes.', 'While the circuit is open, workers wait for a probe before calling Banks.'),
+    step('worker commit db ack mq deliver', 'Cancellation pending', '7,000', 'After the last failed attempt, the worker queues automatic cancellation.', 'The durable history shows that no submission intent was recorded.'),
+    step('worker accountCall accounts commit db', 'Cancelled', '10,000', 'Accounts releases the reservation while Banks is still offline.', 'Ana has the full BRL 10,000 available again.')
+  ]},
+  { title: 'Cancellation after possible submission', steps: [
+    step('web request api publish mq deliver worker', 'Cancellation requested', '7,000', 'Ana asks to cancel after the instruction may have reached Banks.', 'The cancellation is accepted while its financial outcome is still pending.'),
+    step('worker bankCall banks commit db mq', 'Cancellation pending', '7,000', 'Banks is unavailable. Payments keeps the reservation and schedules a lookup.'),
+    step('worker bankCall banks', 'Release pending', '7,000', 'Banks returns. The instruction is processing and Banks confirms cancellation.'),
+    step('worker accountCall accounts commit db', 'Cancelled', '10,000', 'Only after the definitive bank result does Accounts release BRL 3,000.')
+  ]},
+  { title: 'Cancellation after bank settlement', steps: [
+    step('web request api publish mq deliver worker', 'Cancellation requested', '7,000', 'Ana asks to cancel while the bank result is unknown.', 'The same BRL 3,000 remains reserved.'),
+    step('worker bankCall banks commit db', 'Debit pending', '7,000', 'When Banks becomes reachable, the lookup returns PAID and a receipt.', 'The supplier has already received the money.'),
+    step('worker accountCall accounts commit db', 'Paid', '7,000', 'Accounts captures the reservation. Payments records the final bank result', 'and Ana can open the receipt.')
+  ]},
+  { title: 'Worker crash and redelivery', steps: [
+    step('worker commit db', 'Awaiting submission', '7,000', 'Worker A records the reserved funds, the audit event and its next command.', 'It crashes after this commit and before acknowledging the original delivery.'),
+    step('mq deliver worker db commit', 'Awaiting submission', '7,000', 'RabbitMQ redelivers the unacknowledged command to Worker B.', 'Worker B reads the stored command receipt and recovers the same decision.'),
+    step('worker ack mq', 'Awaiting submission', '7,000', 'Worker B publishes the stored successor, waits for its broker confirmation,', 'and then acknowledges the original delivery.'),
+    step('worker bankCall banks accountCall accounts commit db', 'Paid', '7,000', 'The original payment completes with one bank receipt and one account capture.')
+  ]}
+];
+const get = id => document.getElementById(id);
+const select = get('scene');
+for (const [index, item] of scenarios.entries()) select.add(new Option(item.title, String(index)));
+let sceneIndex = 0;
+let stepIndex = 0;
+function render() {
+  const scene = scenarios[sceneIndex];
+  const current = scene.steps[stepIndex];
+  select.value = String(sceneIndex);
+  for (const group of document.querySelectorAll('[data-key]')) {
+    const active = current.focus.includes(group.dataset.key);
+    group.classList.toggle('quiet', sceneIndex > 0 && !active);
+    group.classList.toggle('active', sceneIndex > 0 && active);
+  }
+  get('sceneTitle').textContent = scene.title;
+  get('line1').textContent = current.first;
+  get('line2').textContent = current.second;
+  get('paymentState').textContent = current.state;
+  get('balance').textContent = 'BRL ' + current.available;
+  get('back').disabled = stepIndex === 0;
+  get('next').disabled = stepIndex + 1 === scene.steps.length;
+  get('counter').textContent = sceneIndex === 0 ? 'Overview' : (stepIndex + 1) + ' of ' + scene.steps.length;
+  get('announcement').textContent = [scene.title, current.first, current.second, current.state, get('balance').textContent].join(' ');
+}
+function changeCase(index) {
+  sceneIndex = Math.max(0, Math.min(index, scenarios.length - 1));
+  stepIndex = 0;
+  render();
+}
+function advance(by) {
+  stepIndex = Math.max(0, Math.min(stepIndex + by, scenarios[sceneIndex].steps.length - 1));
+  render();
+}
+select.onchange = () => changeCase(Number(select.value));
+get('back').onclick = () => advance(-1);
+get('next').onclick = () => advance(1);
+get('present').onclick = () => get('canvas').requestFullscreen();
+document.addEventListener('keydown', event => {
+  if (event.altKey || event.ctrlKey || event.metaKey || (event.target === select && !document.fullscreenElement)) return;
+  const actions = { ArrowLeft: () => advance(-1), ArrowRight: () => advance(1),
+    ArrowUp: () => changeCase(sceneIndex - 1), ArrowDown: () => changeCase(sceneIndex + 1) };
+  if (actions[event.key]) { event.preventDefault(); actions[event.key](); }
+});
+render();
+</script>
+</body></html>

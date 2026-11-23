@@ -1,0 +1,44 @@
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+╭ Warning ─────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│   Ignored build scripts: protobufjs@7.6.6.                                   │
+│   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+│   to run scripts.                                                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Done in 232ms using pnpm v10.25.0
+
+> @horizonte/banks@1.0.0 typecheck banks
+> tsc --noEmit
+
+
+> @horizonte/banks@1.0.0 test banks
+> node --test backend/tests/*.test.ts
+
+✔ a pending submission settles or rejects according to the current mode (0.651542ms)
+✔ paid, rejected and cancelled instructions remain final on replay (0.069375ms)
+✔ HTTP validates commands and keeps simulator control off the API (99.891417ms)
+✔ CLI requires reset opt-in and rejects unknown modes before connecting (264.534791ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 590.966084
+
+> @horizonte/banks@1.0.0 test:integration banks
+> node --test backend/tests/*.integration.ts
+
+✔ settlement survives lost HTTP responses, replay, restarts and cancellation (2169.471833ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2337.56075

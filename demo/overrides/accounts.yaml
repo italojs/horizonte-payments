@@ -1,0 +1,14 @@
+x-telemetry: &telemetry
+  OTEL_EXPORTER_OTLP_ENDPOINT: http://otel:4318
+  OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
+  OTEL_METRICS_EXPORTER: otlp
+  OTEL_LOGS_EXPORTER: otlp
+  OTEL_METRIC_EXPORT_INTERVAL: '2000'
+  OTEL_BSP_SCHEDULE_DELAY: '500'
+services:
+  accounts-service:
+    image: horizonte-accounts:local
+    pull_policy: never
+    environment:
+      <<: *telemetry
+      ALLOW_TEST_RESET: ${ALLOW_TEST_RESET:-0}

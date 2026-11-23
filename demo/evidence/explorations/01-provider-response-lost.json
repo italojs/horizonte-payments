@@ -1,0 +1,30 @@
+{
+  "observedAt": "2026-11-23T13:10:17.832Z",
+  "id": "663025f9-d64e-85af-a4d7-9eb6c84fc657",
+  "receipt": "B-7a62c1f8-0ea6-4abe-ac58-9c67cb426a7f",
+  "openingMinor": 1000000,
+  "finalMinor": 700000,
+  "history": [
+    "Payment requested\nNov 23, 10:10 AM",
+    "Available balance updated\nNov 23, 10:10 AM",
+    "Checking the bank’s records\nNov 23, 10:10 AM",
+    "Waiting to retry confirmation\nNov 23, 10:10 AM",
+    "Checking the bank’s records\nNov 23, 10:10 AM",
+    "Bank confirmed payment\nNov 23, 10:10 AM",
+    "Payment completed\nNov 23, 10:10 AM"
+  ],
+  "bank": {
+    "id": "663025f9-d64e-85af-a4d7-9eb6c84fc657",
+    "status": "PAID",
+    "receipt": "B-7a62c1f8-0ea6-4abe-ac58-9c67cb426a7f",
+    "paidEvents": 1
+  },
+  "account": {
+    "status": "CAPTURED",
+    "account": "acc-horizonte",
+    "amountMinor": 300000,
+    "reserves": 1,
+    "captures": 1,
+    "releases": 0
+  }
+}

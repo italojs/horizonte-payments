@@ -1,0 +1,81 @@
+name: horizonte-payments
+x-worker-env: &worker-env
+  OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
+  ACCOUNTS_URL: ${ACCOUNTS_URL:-http://accounts-service:3011}
+  BANK_URL: ${BANK_URL:-http://bank-simulator:3012}
+
+services:
+  payments-db:
+    image: horizonte-payments-db:local
+    pull_policy: never
+    build: {context: ., target: postgres}
+    environment: {POSTGRES_PASSWORD: local-init-only}
+    volumes: [payments-data:/var/lib/postgresql]
+    networks: [payments-private]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U postgres -d payments"]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+  rabbitmq:
+    build: {context: ., target: rabbitmq}
+    image: horizonte-payments-broker:local
+    pull_policy: never
+    hostname: rabbitmq
+    volumes: [broker-data:/var/lib/rabbitmq]
+    networks: [payments-private]
+    healthcheck:
+      test: [CMD, rabbitmq-diagnostics, -q, ping]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  payments-api:
+    build: {context: ., target: api}
+    image: horizonte-payments-api:local
+    pull_policy: never
+    init: true
+    restart: unless-stopped
+    environment:
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
+      OTEL_SERVICE_NAME: payments-api
+      PAYMENTS_DB: postgres://payments_reader:local-payments-reader@payments-db/payments
+      AMQP_URL: amqp://api:local-api-broker@rabbitmq
+      ACCOUNTS_URL: ${ACCOUNTS_URL:-http://accounts-service:3011}
+    depends_on:
+      payments-db: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+    networks: [default, payments-private]
+  payments-worker:
+    build: {context: ., target: worker}
+    image: horizonte-payments-worker:local
+    pull_policy: never
+    init: true
+    restart: unless-stopped
+    environment:
+      <<: *worker-env
+      OTEL_SERVICE_NAME: payments-worker
+      PAYMENTS_DB: postgres://payments_writer:local-payments-writer@payments-db/payments
+      AMQP_URL: amqp://worker:local-worker-broker@rabbitmq
+      RETRY_MS: ${RETRY_MS:-5000,60000,600000}
+      BREAKER_COOLDOWN_MS: ${BREAKER_COOLDOWN_MS:-30000}
+      RECONCILE_MS: ${RECONCILE_MS:-5000}
+      ALLOW_TEST_RESET: ${ALLOW_TEST_RESET:-0}
+    depends_on:
+      payments-db: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+    networks: [default, payments-private]
+  web:
+    build: ./frontend
+    image: horizonte-payments-web:local
+    pull_policy: never
+    init: true
+    environment: {API_PROXY: "http://payments-api:3010"}
+    ports: ["127.0.0.1:${WEB_PORT:-5173}:5173"]
+    depends_on: [payments-api]
+    networks: [default]
+volumes:
+  payments-data:
+  broker-data:
+networks:
+  payments-private:
+    internal: true

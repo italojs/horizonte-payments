@@ -1,0 +1,40 @@
+{
+  "observedAt": "2026-11-23T13:11:06.882Z",
+  "id": "38711f7e-9657-8020-bb02-e88e01760087",
+  "openingMinor": 1000000,
+  "pendingMinor": 700000,
+  "finalMinor": 1000000,
+  "scheduledRetries": [
+    "2026-11-23T13:10:49.550108+00:00",
+    "2026-11-23T13:10:51.061603+00:00",
+    "2026-11-23T13:10:55.082199+00:00"
+  ],
+  "cancellationScheduledAt": "2026-11-23T13:11:03.0962+00:00",
+  "cancellationBeforeSubmissionAt": "2026-11-23T13:11:03.144021+00:00",
+  "history": [
+    "Payment requested\nNov 23, 10:10 AM",
+    "Available balance updated\nNov 23, 10:10 AM",
+    "Waiting to retry confirmation\nNov 23, 10:10 AM",
+    "Waiting to retry confirmation\nNov 23, 10:10 AM",
+    "Waiting to retry confirmation\nNov 23, 10:10 AM",
+    "Confirmation attempts exhausted\nNov 23, 10:11 AM",
+    "Cancellation requested automatically\nNov 23, 10:11 AM",
+    "Checking the bank’s records\nNov 23, 10:11 AM",
+    "Cancelled before reaching the bank\nNov 23, 10:11 AM",
+    "Funds returned to available balance\nNov 23, 10:11 AM"
+  ],
+  "bank": {
+    "id": "38711f7e-9657-8020-bb02-e88e01760087",
+    "status": null,
+    "receipt": null,
+    "paidEvents": 0
+  },
+  "account": {
+    "status": "RELEASED",
+    "account": "acc-horizonte",
+    "amountMinor": 300000,
+    "reserves": 1,
+    "captures": 0,
+    "releases": 1
+  }
+}

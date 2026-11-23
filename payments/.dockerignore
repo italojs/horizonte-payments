@@ -1,0 +1,10 @@
+**/node_modules
+**/dist
+**/tests
+**/.env
+**/.env.local
+.git
+.runtime
+frontend
+playwright-report
+test-results

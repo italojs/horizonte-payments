@@ -1,0 +1,118 @@
+{
+  "users": [
+    {
+      "name": "api",
+      "password_hash": "YWJjZIZQjCNc+AsK0QQZLPsXTVd3QTHi16X8M+QAdhmWQrkX",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": []
+    },
+    {
+      "name": "worker",
+      "password_hash": "ZWZnaJEdNee2K6yAeqwO0JVTKGebHAdBcGL7LNG0Z7hZ2dqM",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": []
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "api",
+      "vhost": "/",
+      "configure": "^$",
+      "read": "^$",
+      "write": "^payments\\.intake$"
+    },
+    {
+      "user": "worker",
+      "vhost": "/",
+      "configure": "^payments\\.(create|process|retry|cancel|dlq)$",
+      "read": "^payments\\.(create|process|retry|cancel|dlq)$",
+      "write": "^(amq\\.default|payments\\.(create|process|retry|cancel|dlq))$"
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "payments.intake",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "queues": [
+    {
+      "name": "payments.create",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "quorum",
+        "x-delivery-limit": -1
+      }
+    },
+    {
+      "name": "payments.process",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "quorum",
+        "x-delivery-limit": -1
+      }
+    },
+    {
+      "name": "payments.retry",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "quorum",
+        "x-delivery-limit": -1
+      }
+    },
+    {
+      "name": "payments.cancel",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "quorum",
+        "x-delivery-limit": -1
+      }
+    },
+    {
+      "name": "payments.dlq",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "quorum",
+        "x-delivery-limit": -1
+      }
+    }
+  ],
+  "bindings": [
+    {
+      "source": "payments.intake",
+      "vhost": "/",
+      "destination": "payments.create",
+      "destination_type": "queue",
+      "routing_key": "payments.create",
+      "arguments": {}
+    },
+    {
+      "source": "payments.intake",
+      "vhost": "/",
+      "destination": "payments.cancel",
+      "destination_type": "queue",
+      "routing_key": "payments.cancel",
+      "arguments": {}
+    }
+  ]
+}

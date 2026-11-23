@@ -1,0 +1,12 @@
+name: horizonte-lab
+include:
+  - path: [./payments/compose.yaml, ./demo/overrides/payments.yaml]
+  - path: [./accounts/compose.yaml, ./demo/overrides/accounts.yaml]
+  - path: [./banks/compose.yaml, ./demo/overrides/banks.yaml]
+services:
+  otel:
+    image: grafana/otel-lgtm:latest@sha256:1b852b77d7bcadb7699bfe7c78a51d059dff85168de674728cf7abf4474645e5
+    ports: ["127.0.0.1:${GRAFANA_PORT:-3000}:3000"]
+    volumes: [telemetry-data:/data]
+volumes:
+  telemetry-data:

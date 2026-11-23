@@ -1,0 +1,14 @@
+{
+  "name": "@horizonte/payments-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --import ../backend/runtime/instrument.ts src/index.ts"
+  },
+  "dependencies": {
+    "@horizonte/payments-runtime": "workspace:*",
+    "pg": "^8.23.1",
+    "amqplib": "^2.4.1"
+  }
+}

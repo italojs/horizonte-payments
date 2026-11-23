@@ -1,0 +1,19 @@
+   1 accounts-db running
+   1 accounts-service running
+   1 bank-simulator running
+   1 banks-db running
+   1 otel running
+   2 payments-api running
+   1 payments-db running
+   3 payments-worker running
+   1 rabbitmq running
+   1 web running
+
+Running 2 tests using 1 worker
+
+(node:36908) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 e2e/payments.spec.ts:7:1 › open the account on mobile, pay a bill and reopen its receipt (3.2s)
+  ✓  2 e2e/payments.spec.ts:26:1 › display a bank rejection and restore the available balance (3.3s)
+
+  2 passed (7.3s)

@@ -1,0 +1,44 @@
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+╭ Warning ─────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│   Ignored build scripts: protobufjs@7.6.6.                                   │
+│   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+│   to run scripts.                                                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Done in 242ms using pnpm v10.25.0
+
+> @horizonte/accounts@1.0.0 typecheck accounts
+> tsc --noEmit
+
+
+> @horizonte/accounts@1.0.0 test accounts
+> node --test backend/tests/*.test.ts
+
+✔ a hold reduces spendable funds until a single capture or release (1.235791ms)
+✔ an early release fences a late reserve or capture (0.062792ms)
+✔ HTTP rejects malformed operations and exposes health (98.354958ms)
+✔ CLI requires an explicit reset opt-in before opening a database (139.082667ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 468.079166
+
+> @horizonte/accounts@1.0.0 test:integration accounts
+> node --test backend/tests/*.integration.ts
+
+✔ HTTP operations maintain the ledger across replay, restart and competing accounts (1195.582875ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1362.388916

@@ -1,0 +1,14 @@
+{
+  "name": "@horizonte/payments-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --import ../backend/runtime/instrument.ts src/index.ts"
+  },
+  "dependencies": {
+    "@horizonte/payments-runtime": "workspace:*",
+    "fastify": "^5.12.8",
+    "pg": "^8.23.1"
+  }
+}

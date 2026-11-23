@@ -1,0 +1,21 @@
+{
+  "name": "@horizonte/payments-runtime",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./broker": "./broker.ts",
+    "./telemetry": "./telemetry.ts",
+    "./instrument": "./instrument.ts",
+    "./database": "./database.ts",
+    "./config": "./config.ts"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "^1.10.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.83.1",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.301.2",
+    "@opentelemetry/sdk-node": "^0.301.2",
+    "amqplib": "^2.4.1",
+    "pg": "^8.23.1"
+  }
+}

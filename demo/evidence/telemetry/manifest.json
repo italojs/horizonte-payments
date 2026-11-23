@@ -1,0 +1,1129 @@
+{
+  "capturedAt": "2026-11-23T13:12:36.089Z",
+  "paymentId": "663025f9-d64e-85af-a4d7-9eb6c84fc657",
+  "traceQuery": "{ span.payment.id = \"663025f9-d64e-85af-a4d7-9eb6c84fc657\" }",
+  "trace": {
+    "traceId": "c44464482054b4ef906234e81d180b5a",
+    "startedAt": "2026-11-23T13:10:12.146Z",
+    "durationMs": 1740.815098,
+    "services": {
+      "payments-api": 3,
+      "payments-worker": 22,
+      "accounts-service": 4,
+      "bank-simulator": 8
+    },
+    "captureAncestors": [
+      "payments-api",
+      "accounts-service",
+      "payments-worker"
+    ],
+    "domainSpans": [
+      {
+        "service": "payments-api",
+        "operation": "payment.accept",
+        "spanId": "324bbf7ebdb92125",
+        "parentSpanId": "73f2863193b4b6e8",
+        "offsetMs": 3,
+        "durationMs": 55.631117
+      },
+      {
+        "service": "payments-api",
+        "operation": "rabbitmq publish payments.create",
+        "spanId": "84f19a160b7c7864",
+        "parentSpanId": "324bbf7ebdb92125",
+        "queue": "payments.create",
+        "offsetMs": 53,
+        "durationMs": 5.161527
+      },
+      {
+        "service": "payments-worker",
+        "operation": "rabbitmq consume payments.create",
+        "spanId": "4d16742247245e7b",
+        "parentSpanId": "84f19a160b7c7864",
+        "queue": "payments.create",
+        "offsetMs": 62,
+        "durationMs": 18.388328
+      },
+      {
+        "service": "payments-worker",
+        "operation": "rabbitmq publish payments.process",
+        "spanId": "fc56b3ec1d19534c",
+        "parentSpanId": "4d16742247245e7b",
+        "queue": "payments.process",
+        "offsetMs": 75,
+        "durationMs": 4.788772
+      },
+      {
+        "service": "payments-worker",
+        "operation": "rabbitmq consume payments.process",
+        "spanId": "37d285adf3aac7b2",
+        "parentSpanId": "fc56b3ec1d19534c",
+        "queue": "payments.process",
+        "offsetMs": 80,
+        "durationMs": 45.756151
+      },
+      {
+        "service": "payments-worker",
+        "operation": "accounts.reserve",
+        "spanId": "45a46d6d0efb6e47",
+        "parentSpanId": "9bceeebf68c50c01",
+        "offsetMs": 83,
+        "durationMs": 24.777247
+      },
+      {
+        "service": "payments-worker",
+        "operation": "saga.RESERVATION_PENDING",
+        "spanId": "9bceeebf68c50c01",
+        "parentSpanId": "37d285adf3aac7b2",
+        "offsetMs": 83,
+        "durationMs": 25.09596
+      },
+      {
+        "service": "accounts-service",
+        "operation": "accounts.reserve",
+        "spanId": "eb2d8e53e691074f",
+        "parentSpanId": "68c2e28caa332172",
+        "offsetMs": 92,
+        "durationMs": 7.40289
+      },
+      {
+        "service": "payments-worker",
+        "operation": "rabbitmq publish payments.process",
+        "spanId": "c7fc4519e1398650",
+        "parentSpanId": "37d285adf3aac7b2",
+        "queue": "payments.process",
+        "offsetMs": 110,
+        "durationMs": 16.578637
+      },
+      {
+        "service": "payments-worker",
+        "operation": "rabbitmq consume payments.process",
+        "spanId": "28008e1df44d5c7a",
+        "parentSpanId": "c7fc4519e1398650",
+        "queue": "payments.process",
+        "offsetMs": 128,
+        "durationMs": 33.641198
+      },
+      {
+        "service": "payments-worker",
+        "operation": "bank.status",
+        "spanId": "d2aaf6d062f039da",
+        "parentSpanId": "e79d26775d4c0a9d",
+        "offsetMs": 129,
+        "durationMs": 28.435296
+      },
+      {
+        "service": "payments-worker",
+        "operation": "saga.AWAITING_SUBMISSION",
+        "spanId": "e79d26775d4c0a9d",
+        "parentSpanId": "28008e1df44d5c7a",
+        "offsetMs": 129,
+        "durationMs": 28.702841
+      },
+      {
+        "service": "bank-simulator",
+        "operation": "bank.query",
+        "spanId": "2dd15efb1d1e9558",
+        "parentSpanId": "cce6a77d9cca369d",
+        "offsetMs": 145,
+        "durationMs": 11.245942
+      },
+      {
+        "service": "payments-worker",
+        "operation": "rabbitmq publish payments.process",
+        "spanId": "dd159ada0b187169",
+        "parentSpanId": "28008e1df44d5c7a",
+        "queue": "payments.process",
+        "offsetMs": 159,
+        "durationMs": 1.937068
+      },
+      {
+        "service": "payments-worker",
+        "operation": "rabbitmq consume payments.process",
+        "spanId": "53eb230b89aab7a2",
+        "parentSpanId": "dd159ada0b187169",
+        "queue": "payments.process",
+        "offsetMs": 163,
+        "durationMs": 17.036602
+      },
+      {
+        "service": "payments-worker",
+        "operation": "bank.status",
+        "spanId": "0d3baadad6fd5577",
+        "parentSpanId": "003c2fb4600f31d3",
+        "offsetMs": 164,
+        "durationMs": 3.854968
+      },
+      {
+        "service": "payments-worker",
+        "operation": "saga.AWAITING_CONFIRMATION",
+        "spanId": "003c2fb4600f31d3",
+        "parentSpanId": "53eb230b89aab7a2",
+        "offsetMs": 164,
+        "durationMs": 12.388707
+      },
+      {
+        "service": "bank-simulator",
+        "operation": "bank.query",
+        "spanId": "04355d9f015b18d1",
+        "parentSpanId": "a67cb32d6d9a53ad",
+        "offsetMs": 166,
+        "durationMs": 0.857094
+      },
+      {
+        "service": "payments-worker",
+        "operation": "bank.submit",
+        "spanId": "f2659a53c835cbd9",
+        "parentSpanId": "003c2fb4600f31d3",
+        "offsetMs": 168,
+        "durationMs": 8.364528
+      },
+      {
+        "service": "bank-simulator",
+        "operation": "bank.submit",
+        "spanId": "ca508584d1310843",
+        "parentSpanId": "32a9206f3aa5d212",
+        "offsetMs": 171,
+        "durationMs": 2.262572
+      },
+      {
+        "service": "payments-worker",
+        "operation": "rabbitmq publish payments.retry",
+        "spanId": "9b9bcf43dac85b12",
+        "parentSpanId": "53eb230b89aab7a2",
+        "queue": "payments.retry",
+        "offsetMs": 178,
+        "durationMs": 1.699897
+      },
+      {
+        "service": "payments-worker",
+        "operation": "rabbitmq consume payments.retry",
+        "spanId": "843d398ace002121",
+        "parentSpanId": "9b9bcf43dac85b12",
+        "queue": "payments.retry",
+        "offsetMs": 1684,
+        "durationMs": 37.024328
+      },
+      {
+        "service": "payments-worker",
+        "operation": "bank.status",
+        "spanId": "63e089bb2480b6e8",
+        "parentSpanId": "8d48398e33001ce0",
+        "offsetMs": 1690,
+        "durationMs": 24.357242
+      },
+      {
+        "service": "payments-worker",
+        "operation": "saga.AWAITING_CONFIRMATION",
+        "spanId": "8d48398e33001ce0",
+        "parentSpanId": "843d398ace002121",
+        "offsetMs": 1690,
+        "durationMs": 24.637788
+      },
+      {
+        "service": "bank-simulator",
+        "operation": "bank.query",
+        "spanId": "2dd4064804c883bf",
+        "parentSpanId": "ff75a5c8f6d6e9b1",
+        "offsetMs": 1706,
+        "durationMs": 5.573908
+      },
+      {
+        "service": "payments-worker",
+        "operation": "rabbitmq publish payments.process",
+        "spanId": "187e08be9123b55b",
+        "parentSpanId": "843d398ace002121",
+        "queue": "payments.process",
+        "offsetMs": 1717,
+        "durationMs": 3.881719
+      },
+      {
+        "service": "payments-worker",
+        "operation": "rabbitmq consume payments.process",
+        "spanId": "1d715528d41162b0",
+        "parentSpanId": "187e08be9123b55b",
+        "queue": "payments.process",
+        "offsetMs": 1721,
+        "durationMs": 19.815098
+      },
+      {
+        "service": "payments-worker",
+        "operation": "accounts.capture",
+        "spanId": "0adfca22379f8942",
+        "parentSpanId": "87f1109d9c43819f",
+        "offsetMs": 1722,
+        "durationMs": 12.800963
+      },
+      {
+        "service": "payments-worker",
+        "operation": "saga.DEBIT_PENDING",
+        "spanId": "87f1109d9c43819f",
+        "parentSpanId": "1d715528d41162b0",
+        "offsetMs": 1722,
+        "durationMs": 12.919423
+      },
+      {
+        "service": "accounts-service",
+        "operation": "accounts.capture",
+        "spanId": "dfc40c7eae38c6ee",
+        "parentSpanId": "e65608d206af7123",
+        "offsetMs": 1727,
+        "durationMs": 6.541546
+      }
+    ]
+  },
+  "metricQuery": "{__name__=~\"(accounts|banks|payments)[._]operations(_total)?\"}",
+  "metrics": [
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "accounts.balance",
+      "result": "ok",
+      "total": 7,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "accounts.balance",
+      "result": "ok",
+      "total": 10,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "accounts.balance",
+      "result": "ok",
+      "total": 14,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "accounts.balance",
+      "result": "ok",
+      "total": 6,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "accounts.balance",
+      "result": "ok",
+      "total": 5,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "accounts.balance",
+      "result": "ok",
+      "total": 4,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "accounts.capture",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "accounts_operations_total",
+      "service": "accounts-service",
+      "operation": "accounts.capture",
+      "result": "ok",
+      "total": 3,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "accounts.capture",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "accounts.capture",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "accounts_operations_total",
+      "service": "accounts-service",
+      "operation": "accounts.release",
+      "result": "ok",
+      "total": 3,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "accounts.release",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "accounts.release",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "accounts.release",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "accounts.reserve",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "accounts_operations_total",
+      "service": "accounts-service",
+      "operation": "accounts.reserve",
+      "result": "ok",
+      "total": 6,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "accounts.reserve",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "accounts.reserve",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "accounts.reserve",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "accounts.reserve",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "accounts.reserve",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "banks_operations_total",
+      "service": "bank-simulator",
+      "operation": "bank.cancel",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "bank.cancel",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "banks_operations_total",
+      "service": "bank-simulator",
+      "operation": "bank.query",
+      "result": "ok",
+      "total": 18,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "bank.status",
+      "result": "ok",
+      "total": 3,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "bank.status",
+      "result": "ok",
+      "total": 3,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "bank.status",
+      "result": "ok",
+      "total": 2,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "bank.status",
+      "result": "ok",
+      "total": 2,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "bank.status",
+      "result": "ok",
+      "total": 2,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "banks_operations_total",
+      "service": "bank-simulator",
+      "operation": "bank.submit",
+      "result": "ok",
+      "total": 5,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "bank.submit",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "bank.submit",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "bank.submit",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "bank.submit",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "payment.accept",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "payment.accept",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "payment.accept",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "payment.accept",
+      "result": "ok",
+      "total": 2,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "payment.accept",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "payment.accept",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "payment.cancel",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.cancel",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.cancel",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.create",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.create",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.create",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.create",
+      "result": "ok",
+      "total": 2,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.create",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.create",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.process",
+      "result": "ok",
+      "total": 4,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.process",
+      "result": "ok",
+      "total": 5,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.process",
+      "result": "ok",
+      "total": 4,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.process",
+      "result": "ok",
+      "total": 8,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.process",
+      "result": "ok",
+      "total": 4,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.process",
+      "result": "ok",
+      "total": 4,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.retry",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.retry",
+      "result": "ok",
+      "total": 3,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq consume payments.retry",
+      "result": "ok",
+      "total": 3,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "rabbitmq publish payments.cancel",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq publish payments.cancel",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "rabbitmq publish payments.create",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "rabbitmq publish payments.create",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "rabbitmq publish payments.create",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "rabbitmq publish payments.create",
+      "result": "ok",
+      "total": 2,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "rabbitmq publish payments.create",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-api",
+      "operation": "rabbitmq publish payments.create",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq publish payments.process",
+      "result": "ok",
+      "total": 4,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq publish payments.process",
+      "result": "ok",
+      "total": 5,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq publish payments.process",
+      "result": "ok",
+      "total": 4,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq publish payments.process",
+      "result": "ok",
+      "total": 8,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq publish payments.process",
+      "result": "ok",
+      "total": 4,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq publish payments.process",
+      "result": "ok",
+      "total": 4,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq publish payments.retry",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq publish payments.retry",
+      "result": "ok",
+      "total": 3,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "rabbitmq publish payments.retry",
+      "result": "ok",
+      "total": 3,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.AWAITING_CONFIRMATION",
+      "result": "ok",
+      "total": 2,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.AWAITING_CONFIRMATION",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.AWAITING_CONFIRMATION",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.AWAITING_CONFIRMATION",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.AWAITING_CONFIRMATION",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.AWAITING_SUBMISSION",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.AWAITING_SUBMISSION",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.AWAITING_SUBMISSION",
+      "result": "ok",
+      "total": 4,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.AWAITING_SUBMISSION",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.AWAITING_SUBMISSION",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.AWAITING_SUBMISSION",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.CANCEL_RELEASE_PENDING",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.CANCEL_RELEASE_PENDING",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.CANCELLATION_PENDING",
+      "result": "ok",
+      "total": 3,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.CANCELLATION_PENDING",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.DEBIT_PENDING",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.DEBIT_PENDING",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.DEBIT_PENDING",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.FAILURE_RELEASE_PENDING",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.RESERVATION_PENDING",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.RESERVATION_PENDING",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.RESERVATION_PENDING",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.RESERVATION_PENDING",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.RESERVATION_PENDING",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    },
+    {
+      "name": "payments_operations_total",
+      "service": "payments-worker",
+      "operation": "saga.RESERVATION_PENDING",
+      "result": "ok",
+      "total": 1,
+      "sampleAt": "2026-11-23T13:12:12.523Z"
+    }
+  ],
+  "logs": {
+    "query": "{service_name=~\"payments-api|payments-worker|accounts-service|bank-simulator\"} | trace_id=\"c44464482054b4ef906234e81d180b5a\"",
+    "correlatedRecords": 30,
+    "services": [
+      "accounts-service",
+      "bank-simulator",
+      "payments-api",
+      "payments-worker"
+    ]
+  },
+  "videos": [
+    {
+      "file": "grafana-trace.mp4",
+      "assertions": [
+        "The Grafana trace waterfall rendered",
+        "API acceptance, RabbitMQ consumption, bank submission and account capture were visible"
+      ],
+      "bytes": 354128,
+      "sha256": "e43fabec7ab4f32328e1d11e352b766ba07a31844d6379d44ef8759e3f83cfc7",
+      "durationSeconds": 10.56,
+      "codec": "h264",
+      "width": 1440,
+      "height": 1000,
+      "frameRate": "25/1"
+    },
+    {
+      "file": "grafana-metrics-logs.mp4",
+      "assertions": [
+        "Prometheus returned API, bank and accounts counters",
+        "Loki displayed account capture and bank submission for this trace"
+      ],
+      "bytes": 762790,
+      "sha256": "62f09d55c8638f13eb90dcafd00ce081d5c8ee5063b03bea1be4283d4380f409",
+      "durationSeconds": 12.16,
+      "codec": "h264",
+      "width": 1440,
+      "height": 1000,
+      "frameRate": "25/1"
+    }
+  ],
+  "explore": {
+    "trace": "http://localhost:13000/explore?schemaVersion=1&panes=%7B%22a%22%3A%7B%22datasource%22%3A%22tempo%22%2C%22queries%22%3A%5B%7B%22refId%22%3A%22A%22%2C%22datasource%22%3A%7B%22type%22%3A%22tempo%22%2C%22uid%22%3A%22tempo%22%7D%2C%22queryType%22%3A%22traceql%22%2C%22query%22%3A%22c44464482054b4ef906234e81d180b5a%22%7D%5D%2C%22range%22%3A%7B%22from%22%3A%22now-1h%22%2C%22to%22%3A%22now%22%7D%7D%7D",
+    "metrics": "http://localhost:13000/explore?schemaVersion=1&panes=%7B%22a%22%3A%7B%22datasource%22%3A%22prometheus%22%2C%22queries%22%3A%5B%7B%22refId%22%3A%22A%22%2C%22datasource%22%3A%7B%22type%22%3A%22prometheus%22%2C%22uid%22%3A%22prometheus%22%7D%2C%22editorMode%22%3A%22code%22%2C%22expr%22%3A%22sum+by+%28operation%29+%28%7B__name__%3D%7E%5C%22%28payments%7Cbanks%7Caccounts%29_operations_total%5C%22%2Coperation%3D%7E%5C%22accounts.capture%7Cbank.submit%7Cpayment.accept%5C%22%2Cresult%3D%5C%22ok%5C%22%7D%29%22%2C%22instant%22%3Atrue%2C%22range%22%3Afalse%2C%22format%22%3A%22table%22%7D%5D%2C%22range%22%3A%7B%22from%22%3A%22now-1h%22%2C%22to%22%3A%22now%22%7D%7D%7D",
+    "logs": "http://localhost:13000/explore?schemaVersion=1&panes=%7B%22a%22%3A%7B%22datasource%22%3A%22loki%22%2C%22queries%22%3A%5B%7B%22refId%22%3A%22A%22%2C%22datasource%22%3A%7B%22type%22%3A%22loki%22%2C%22uid%22%3A%22loki%22%7D%2C%22editorMode%22%3A%22code%22%2C%22expr%22%3A%22%7Bservice_name%3D%7E%5C%22payments-api%7Cpayments-worker%7Caccounts-service%7Cbank-simulator%5C%22%7D+%7C+trace_id%3D%5C%22c44464482054b4ef906234e81d180b5a%5C%22%22%2C%22queryType%22%3A%22range%22%7D%5D%2C%22range%22%3A%7B%22from%22%3A%22now-1h%22%2C%22to%22%3A%22now%22%7D%7D%7D"
+  },
+  "explorePaths": {
+    "trace": "/explore?schemaVersion=1&panes=%7B%22a%22%3A%7B%22datasource%22%3A%22tempo%22%2C%22queries%22%3A%5B%7B%22refId%22%3A%22A%22%2C%22datasource%22%3A%7B%22type%22%3A%22tempo%22%2C%22uid%22%3A%22tempo%22%7D%2C%22queryType%22%3A%22traceql%22%2C%22query%22%3A%22c44464482054b4ef906234e81d180b5a%22%7D%5D%2C%22range%22%3A%7B%22from%22%3A%22now-1h%22%2C%22to%22%3A%22now%22%7D%7D%7D",
+    "metrics": "/explore?schemaVersion=1&panes=%7B%22a%22%3A%7B%22datasource%22%3A%22prometheus%22%2C%22queries%22%3A%5B%7B%22refId%22%3A%22A%22%2C%22datasource%22%3A%7B%22type%22%3A%22prometheus%22%2C%22uid%22%3A%22prometheus%22%7D%2C%22editorMode%22%3A%22code%22%2C%22expr%22%3A%22sum+by+%28operation%29+%28%7B__name__%3D%7E%5C%22%28payments%7Cbanks%7Caccounts%29_operations_total%5C%22%2Coperation%3D%7E%5C%22accounts.capture%7Cbank.submit%7Cpayment.accept%5C%22%2Cresult%3D%5C%22ok%5C%22%7D%29%22%2C%22instant%22%3Atrue%2C%22range%22%3Afalse%2C%22format%22%3A%22table%22%7D%5D%2C%22range%22%3A%7B%22from%22%3A%22now-1h%22%2C%22to%22%3A%22now%22%7D%7D%7D",
+    "logs": "/explore?schemaVersion=1&panes=%7B%22a%22%3A%7B%22datasource%22%3A%22loki%22%2C%22queries%22%3A%5B%7B%22refId%22%3A%22A%22%2C%22datasource%22%3A%7B%22type%22%3A%22loki%22%2C%22uid%22%3A%22loki%22%7D%2C%22editorMode%22%3A%22code%22%2C%22expr%22%3A%22%7Bservice_name%3D%7E%5C%22payments-api%7Cpayments-worker%7Caccounts-service%7Cbank-simulator%5C%22%7D+%7C+trace_id%3D%5C%22c44464482054b4ef906234e81d180b5a%5C%22%22%2C%22queryType%22%3A%22range%22%7D%5D%2C%22range%22%3A%7B%22from%22%3A%22now-1h%22%2C%22to%22%3A%22now%22%7D%7D%7D"
+  },
+  "domainMetricsQuery": "sum by (operation) ({__name__=~\"(payments|banks|accounts)_operations_total\",operation=~\"accounts.capture|bank.submit|payment.accept\",result=\"ok\"})"
+}
